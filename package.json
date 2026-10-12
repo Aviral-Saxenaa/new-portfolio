@@ -1,0 +1,14 @@
+{
+  "name": "aviral-portfolio-root",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "new_portfolio"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=new_portfolio",
+    "build": "npm run build --workspace=new_portfolio",
+    "start": "npm run start --workspace=new_portfolio",
+    "lint": "npm run lint --workspace=new_portfolio"
+  }
+}
