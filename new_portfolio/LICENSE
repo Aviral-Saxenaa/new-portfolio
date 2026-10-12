@@ -23,9 +23,11 @@ SOFTWARE.
 ---
 
 Scope: this license covers the source code only. Not covered, and © Raghav Goel,
-all rights reserved: the rider character and its art (src/features/ride/engine/riderArt.ts
-and scripts/rider), the deck cover illustrations, the written content in
-src/config, and the site's visual design. Third-party material keeps its own
-license: Bowlby One (SIL Open Font License, src/assets/fonts/OFL-BowlbyOne.txt) and
-the Simple Icons marks (CC0). Company names and logos are trademarks of their
+all rights reserved: the original Raghav Goel rider character and its art from
+the Raghav Goel portfolio repository, the original deck cover illustrations,
+written content in that portfolio's src/config, and that site's visual design.
+The Aviral-specific rider SVG in this repository is newly drawn and is not the
+excluded Raghav Goel artwork. Third-party material keeps its own license:
+Bowlby One (SIL Open Font License, src/assets/fonts/OFL-BowlbyOne.txt) and the
+Simple Icons marks (CC0). Company names and logos are trademarks of their
 owners.
