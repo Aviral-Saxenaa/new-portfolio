@@ -67,7 +67,7 @@ export const site: SiteConfig = {
   ],
   resume: {
     title: "Résumé",
-    href: "https://drive.google.com/file/d/1SNGyEa5IgCKrjiTQcLG2O3yj2nqPDRFk/view?usp=sharing",
+    href: "https://drive.google.com/file/d/11cAZpb2aei-EgN8kZrWhqxV2HqOIfJDs/view?usp=sharing",
     label: "View PDF",
   },
   footnote: "Skater, skates and every graphic on this page are drawn in code.",
