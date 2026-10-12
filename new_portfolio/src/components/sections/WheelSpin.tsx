@@ -153,6 +153,7 @@ export default function WheelSpin({
         }
         w.vel *= Math.exp(-W.friction * dt);
         w.angle = (w.angle + w.vel * dt) % 360;
+        w.el.setAttribute("transform", `rotate(${w.angle.toFixed(2)} 60 60)`);
         w.el.style.transform = `rotate(${w.angle}deg)`;
         smoke(w);
         moving = true;
@@ -187,6 +188,27 @@ export default function WheelSpin({
       w.vel = (w.vel || 0) + dir * base * (1 + (Math.random() - 0.5) * W.jitter);
       w.delay = delay;
     };
+
+    const rowObservers: IntersectionObserver[] = [];
+    const rows = [...root.querySelectorAll("ul")];
+    rows.forEach((row) => {
+      let rowInside = false;
+      const rowIo = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !rowInside) {
+            const base = W.entryKick + Math.min(W.speedBoostMax, speed * W.speedBoost);
+            const rowWheels = wheels.filter((w) => w.row === row);
+            rowWheels.forEach((w, i) => kick(w, base, i * W.stagger));
+            run();
+          }
+          rowInside = entry.isIntersecting;
+        },
+        { threshold: 0.1 },
+      );
+      rowIo.observe(row);
+      rowObservers.push(rowIo);
+    });
+
     let inside = false;
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -198,7 +220,7 @@ export default function WheelSpin({
         inside = entry.isIntersecting;
       },
       { rootMargin: `-${W.enterAt * 100}% 0px -${W.enterAt * 100}% 0px` },
-    ); // same two-edge rule as lib/useEnter
+    );
     io.observe(root);
 
     const onHover = (e: PointerEvent) => {
@@ -233,6 +255,7 @@ export default function WheelSpin({
         const maxVel = W.entryKick + W.speedBoostMax;
         w.vel = Math.max(-maxVel, Math.min(maxVel, (deg / dt) * W.rollCoast));
         w.delay = 0;
+        w.el.setAttribute("transform", `rotate(${w.angle.toFixed(2)} 60 60)`);
         w.el.style.transform = `rotate(${w.angle}deg)`;
       }
       run();
@@ -242,6 +265,7 @@ export default function WheelSpin({
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
+      rowObservers.forEach((o) => o.disconnect());
       window.removeEventListener("scroll", onScroll);
       root.removeEventListener("pointerover", onHover);
       root.removeEventListener("scroll", onRowScroll, { capture: true });

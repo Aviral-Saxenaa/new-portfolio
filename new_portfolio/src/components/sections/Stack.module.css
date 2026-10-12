@@ -76,7 +76,8 @@
 }
 /* rotation is driven by WheelSpin.tsx (spin kick + friction) */
 .spin {
-  transform-origin: 60px 60px;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
   will-change: transform;
 }
 .wheel b {
