@@ -44,7 +44,7 @@ export const site: SiteConfig = {
     tag: "AS",
     form: {
       title: "Send a message",
-      web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || undefined,
+      web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "c186131e-8c28-41ce-a18b-15f9ed454e4a",
       endpoint: "https://api.web3forms.com/submit",
       fromName: "Aviral Portfolio contact form",
       fields: {

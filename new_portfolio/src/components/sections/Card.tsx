@@ -4,6 +4,7 @@ import type { PointerEvent } from "react";
 import type { Certificate } from "@/types/content";
 import { motion } from "@/config/motion";
 import { issuerLogos, type LogoArt } from "@/config/issuerLogos";
+import s from "./Certificates.module.css";
 
 /** an issuer's mark in its own colours: filled shapes, and lines for the parts drawn as outlines */
 function Logo({ art }: { art: LogoArt }) {
@@ -25,7 +26,6 @@ function Logo({ art }: { art: LogoArt }) {
     </svg>
   );
 }
-import s from "./Certificates.module.css";
 
 /** Holo trading card that tilts toward the pointer. Writes CSS vars directly: no re-render per move. */
 export default function Card({ cert: c, number }: { cert: Certificate; number: string }) {
