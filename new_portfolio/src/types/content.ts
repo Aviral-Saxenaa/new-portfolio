@@ -93,7 +93,7 @@ export interface Checkpoint {
 }
 
 /** cover art drawn on a deck's front (DeckArt.tsx) */
-export type DeckArt = "upload" | "stream" | "monitor" | "lyrics" | "site";
+export type DeckArt = "upload" | "stream" | "monitor" | "lyrics" | "site" | "trip" | "ghost" | "snip";
 
 export interface Project {
   name: string;
@@ -122,7 +122,7 @@ export interface Project {
   /** demo video, for projects without a deployed app */
   demo?: string;
   /** source code */
-  repo: string;
+  repo?: string;
 }
 
 export interface DurometerTier {

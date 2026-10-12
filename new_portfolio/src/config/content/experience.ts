@@ -4,6 +4,7 @@ import { site } from "@/config/site";
 export const experience: ExperienceEntry[] = [
   {
     from: "Jan 2026",
+    to: "Jun 2026",
     title: "Software Engineer Intern",
     org: site.employer.name,
     orgUrl: site.employer.url,

@@ -142,6 +142,120 @@ function Lyrics() {
   );
 }
 
+/** A route connecting stops on a compact itinerary map. */
+function Trip() {
+  return (
+    <>
+      <rect x="12" y="24" width="144" height="148" rx="10" fill={paper} {...line} />
+      <path
+        d="M20 62 C42 46 53 84 77 66 S112 44 148 64 M20 126 C46 105 61 145 92 121 S124 106 148 126"
+        fill="none"
+        stroke={shade(12)}
+        strokeWidth="2"
+        strokeDasharray="4 5"
+      />
+      <path
+        d="M38 112 C54 105 55 73 81 79 S102 123 131 91"
+        fill="none"
+        stroke={pink}
+        strokeWidth="4"
+        strokeDasharray="5 4"
+        strokeLinecap="round"
+      />
+      <g {...line}>
+        <path d="M38 103 C38 94 51 94 51 103 C51 109 44.5 117 44.5 117 S38 109 38 103Z" fill={acid} />
+        <path d="M75 70 C75 61 88 61 88 70 C88 76 81.5 84 81.5 84 S75 76 75 70Z" fill={pink} />
+        <path d="M124 82 C124 73 137 73 137 82 C137 88 130.5 96 130.5 96 S124 88 124 82Z" fill={acid} />
+      </g>
+      <circle cx="44.5" cy="102" r="2.5" fill={ink} />
+      <circle cx="81.5" cy="69" r="2.5" fill={ink} />
+      <circle cx="130.5" cy="81" r="2.5" fill={ink} />
+      <rect x="25" y="137" width="118" height="24" rx="5" fill={ink} />
+      <text x="84" y="147" textAnchor="middle" style={mono} fontSize="7" fill={acid}>
+        AI TRAVEL CREW
+      </text>
+      <text x="84" y="156" textAnchor="middle" style={mono} fontSize="7" fill={white}>
+        PLAN · BUDGET · EXPLORE
+      </text>
+    </>
+  );
+}
+
+/** A live collaborative code editor with a saved snippet card. */
+function Snip() {
+  return (
+    <>
+      <rect x="10" y="28" width="148" height="120" rx="8" fill={ink} {...line} />
+      <path d="M10 50 H158" stroke={paper} strokeWidth="2" />
+      <circle cx="23" cy="39" r="3" fill={pink} />
+      <circle cx="34" cy="39" r="3" fill={acid} />
+      <circle cx="45" cy="39" r="3" fill={white} />
+      <text x="57" y="42" style={mono} fontSize="7" fill={white}>
+        snippet.js
+      </text>
+      <g style={mono} fontSize="9">
+        <text x="22" y="68" fill={pink}>
+          const
+        </text>
+        <text x="53" y="68" fill={acid}>
+          greet
+        </text>
+        <text x="83" y="68" fill={white}>
+          = () =&gt; {"{"}
+        </text>
+        <text x="30" y="86" fill={white}>
+          return
+        </text>
+        <text x="62" y="86" fill={acid}>
+          "hello"
+        </text>
+        <text x="30" y="104" fill={white}>
+          console.log
+        </text>
+        <text x="84" y="104" fill={pink}>
+          (greet)
+        </text>
+        <text x="22" y="122" fill={acid}>
+          {"}"}
+        </text>
+      </g>
+      <rect x="36" y="156" width="96" height="24" rx="12" fill={paper} {...line} />
+      <circle cx="51" cy="168" r="5" fill={pink} />
+      <circle cx="61" cy="168" r="5" fill={acid} />
+      <text x="98" y="171" textAnchor="middle" style={mono} fontSize="8" fill={ink}>
+        LIVE SYNC
+      </text>
+      <path d="M142 61 l7 7 -7 7" fill="none" stroke={acid} strokeWidth="2" />
+    </>
+  );
+}
+
+/** A ghost hovering above an inbox of unanswered interview follow-ups. */
+function Ghost() {
+  return (
+    <>
+      <rect x="17" y="62" width="134" height="101" rx="8" fill={paper} {...line} />
+      <path d="M19 69 L84 117 L149 69" fill="none" stroke={ink} strokeWidth="3" />
+      <path d="M20 151 L64 111 M148 151 L104 111" fill="none" stroke={ink} strokeWidth="3" />
+      <path d="M48 90 H104 M48 101 H88" stroke={shade(45)} strokeWidth="3" strokeLinecap="round" />
+      <rect x="82" y="126" width="61" height="22" rx="11" fill={pink} {...line} />
+      <text x="112.5" y="140" textAnchor="middle" style={mono} fontSize="8" fill={ink}>
+        NO REPLY
+      </text>
+      <path
+        d="M52 66 C52 42 66 27 84 27 C102 27 116 42 116 66 V78 L105 70 L95 78 L84 70 L73 78 L63 70 L52 78Z"
+        fill={white}
+        {...line}
+      />
+      <ellipse cx="74" cy="52" rx="3" ry="5" fill={ink} />
+      <ellipse cx="94" cy="52" rx="3" ry="5" fill={ink} />
+      <path d="M77 63 Q84 69 91 63" fill="none" stroke={pink} strokeWidth="3" strokeLinecap="round" />
+      <path d="M129 30 V40 M124 35 H134" stroke={acid} strokeWidth="2" strokeLinecap="round" />
+      <path d="M37 40 V46 M34 43 H40" stroke={pink} strokeWidth="2" strokeLinecap="round" />
+    </>
+  );
+}
+
 /** the cover's jump: front knee tucked, back leg trailing, arms spread (angles as in poses.ts) */
 const JUMP = full({
   tL: 1.35,
@@ -202,6 +316,9 @@ const arts: Record<Art, () => React.JSX.Element> = {
   monitor: Monitor,
   lyrics: Lyrics,
   site: Site,
+  trip: Trip,
+  ghost: Ghost,
+  snip: Snip,
 };
 
 export default function DeckArt({ art, className }: { art: Art; className?: string }) {
