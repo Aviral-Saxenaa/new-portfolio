@@ -429,7 +429,7 @@ export function startRide(els: RideElements): () => void {
       let yy = lerp(groundY, flat ? railY - 2 : railY, ef) - Math.sin(Math.PI * e2) * h * M.arcHeight;
       const roll = flat ? 0 : ef; // how far he has turned onto his side
       const top = yy - S.height * scale * Math.cos((roll * Math.PI) / 2) * 0.95;
-      if (top < M.topClearance) yy += M.topClearance - top;
+      if (ts > 0.001 && top < M.topClearance) yy += M.topClearance - top;
 
       // head + eyes follow the pointer (standing at the hero, or on the rail when it is close), once armed
       const standing = ts < 0.12 && !intro.running,
