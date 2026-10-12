@@ -16,7 +16,7 @@ const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
  * A skateboard deck: cover art on the front (title, illustration, tag band), build notes on the grip-tape back.
  * Clicking it lifts the deck out of the row into a spotlight: it flies to the centre of the screen, grows to fit and
  * flips to its back over a dimmed page (a modal <dialog>, portalled to <body> so the row's scroll and zoom can't clip
- * or scale it). Esc, the close button or a click outside flies it back. Projects sizes each title to fit its deck.
+ * or scale it). Direct badges on the front allow instant navigation to live sites and github repos.
  */
 export default function Deck({
   project: p,
@@ -31,7 +31,7 @@ export default function Deck({
   const [flipped, setFlipped] = useState(false);
   const [closing, setClosing] = useState(false);
   const deckRef = useRef<HTMLElement>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const btnRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const spotRef = useRef<HTMLDivElement>(null);
   const wasOpen = useRef(false);
@@ -83,7 +83,6 @@ export default function Deck({
     });
     const t = requestAnimationFrame(() => setFlipped(true));
     return () => cancelAnimationFrame(t);
-    // poses reads refs and the window at the moment of opening
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
@@ -122,7 +121,32 @@ export default function Deck({
         ))}
       </span>
       <DeckArt art={p.art} className={s.art} />
-      {p.live && <span className={s.live}>LIVE</span>}
+      <div className={s.frontBadges}>
+        {p.live && (
+          <a
+            href={p.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={s.live}
+            onClick={(e) => e.stopPropagation()}
+            title={`Open ${p.name} website`}
+          >
+            Live ↗
+          </a>
+        )}
+        {p.repo && (
+          <a
+            href={p.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={s.repoBadge}
+            onClick={(e) => e.stopPropagation()}
+            title={`View ${p.name} code on GitHub`}
+          >
+            GitHub ↗
+          </a>
+        )}
+      </div>
       <span className={s.band}>
         <span className={s.tag}>{p.tag}</span>
       </span>
@@ -135,21 +159,27 @@ export default function Deck({
       <h3 className="sr-only">
         {p.name}: {p.tag}. {p.problem} {p.built} {p.result.value} {p.result.unit}.
       </h3>
-      <button
-        ref={btnRef}
-        type="button"
+      <div
+        ref={btnRef as unknown as React.RefObject<HTMLDivElement>}
+        role="button"
+        tabIndex={0}
         className={s.flip}
         onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-describedby={hint}
       >
-        {/* the button is named by the front it shows (so voice control matches the screen); this is the hint */}
         <span id={hint} className="sr-only">
           {labels.flipHint}
         </span>
         <span className={s.inner}>{front()}</span>
-      </button>
+      </div>
 
       {open &&
         createPortal(
@@ -202,9 +232,9 @@ export default function Deck({
                   </span>
                   <span className={s.links}>
                     {links.map(([k, href]) => (
-                      <a key={k} href={href} target="_blank" rel="noopener">
-                        {labels.deckLinks[k]}
-                        <span className="sr-only">: {p.name}</span> <span aria-hidden="true">↗</span>
+                      <a key={k} href={href} target="_blank" rel="noopener noreferrer">
+                        {labels.deckLinks[k]} ↗
+                        <span className="sr-only">: {p.name}</span>
                       </a>
                     ))}
                   </span>

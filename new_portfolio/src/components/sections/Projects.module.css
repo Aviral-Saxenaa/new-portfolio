@@ -197,21 +197,36 @@
   height: 178px;
   overflow: visible;
 }
-/* the same pill as the hero's "open to work" */
-.live {
+/* badges on the front face of each deck */
+.frontBadges {
   position: absolute;
-  top: 382px;
-  right: 16px;
-  z-index: 3;
+  top: 374px;
+  right: 12px;
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: 6px;
-  font: 600 10px/1 var(--font-mono);
-  letter-spacing: 0.14em;
+}
+.live,
+.repoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 700 10.5px/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 99px;
+  padding: 6px 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s, background-color 0.12s;
+  pointer-events: auto;
+}
+.live {
   background: var(--ink);
   color: var(--acid);
-  border-radius: 99px;
-  padding: 6px 9px;
+  border: 1.5px solid var(--acid);
 }
 .live::before {
   content: "";
@@ -219,6 +234,23 @@
   height: 6px;
   border-radius: 50%;
   background: var(--acid);
+}
+.live:hover {
+  background: var(--acid);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.repoBadge {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+.repoBadge:hover {
+  background: var(--pink);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--ink);
 }
 .band {
   position: absolute;

@@ -32,7 +32,7 @@ export function startRide(els: RideElements): () => void {
   const revealRoot = document.querySelector<HTMLElement>("[data-reveal-root]");
   const letters = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
   const dock = document.querySelector<HTMLElement>("[data-dock]");
-  const intro = { start: Infinity, running: false };
+  const intro = { start: performance.now() + I.startDelay, running: true };
   const revealAll = () => letters.forEach((l) => flag(l, "on", true));
   /** back to the server-rendered markup: no intro state, every letter visible */
   const resetReveal = () => {
@@ -41,24 +41,30 @@ export function startRide(els: RideElements): () => void {
   };
   // start clean: a previous run (React StrictMode mounts twice in dev) may have left letters revealed
   resetReveal();
-  // the boot script hid the name before first paint; take over (same task, so no frame shows it), or, if it
-  // already gave up waiting and showed the name, skip the intro rather than hide it again
-  const late = root.dataset.introLate !== undefined;
+  // the boot script hid the name before first paint; take over (same task, so no frame shows it)
   delete root.dataset.introWait;
+  delete root.dataset.introLate;
   // opened on a checkpoint (#projects…): skip the intro and start on the rail
   const deepLink = rail.cps.slice(1).find((c) => c.id === decodeURIComponent(window.location.hash.slice(1)));
   let failsafe = 0;
-  if (deepLink || late) revealAll();
-  else if (!ctx.simple && revealRoot) {
+  if (deepLink) {
+    intro.running = false;
+    revealAll();
+  } else if (!ctx.simple && revealRoot) {
     revealRoot.dataset.intro = "pre";
     intro.running = true;
-    document.fonts.ready.then(() => {
-      intro.start = performance.now() + I.startDelay;
-    });
-    failsafe = window.setTimeout(revealAll, I.failsafe);
+    intro.start = performance.now() + I.startDelay;
+    failsafe = window.setTimeout(() => {
+      finishIntro();
+      revealAll();
+    }, I.failsafe);
+  } else {
+    intro.running = false;
+    revealAll();
   }
   const finishIntro = () => {
-    if (intro.running) intro.start = performance.now() - I.duration;
+    intro.running = false;
+    intro.start = -Infinity;
   };
 
   const stunt = createStunt(ctx, rail, { finishIntro });
