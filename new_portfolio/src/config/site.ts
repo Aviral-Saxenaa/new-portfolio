@@ -63,7 +63,7 @@ export const site: SiteConfig = {
   socials: [
     { kind: "linkedin", label: "LinkedIn", handle: "saxenaaviral", href: "https://linkedin.com/in/saxenaaviral" },
     { kind: "github", label: "GitHub", handle: "Aviral-Saxenaa", href: "https://github.com/Aviral-Saxenaa" },
-    { kind: "website", label: "LeetCode", handle: "Aviral-Saxenaa", href: "https://leetcode.com/Aviral-Saxenaa/" },
+    { kind: "website", label: "LeetCode", handle: "Aviral-Saxenaa", href: "https://leetcode.com/u/oof_ninja/" },
   ],
   resume: {
     title: "Résumé",
